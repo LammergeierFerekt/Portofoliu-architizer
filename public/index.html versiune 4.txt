@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arch.ITizer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e6e6e6;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            margin-top: 25px;
+            font-size: 60px;
+            color: #4a5ba9;
+        }
+        .logo {
+            height: 150px;
+            margin-top: -15px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 10px 0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #7f8eb7;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            box-shadow: 3px 3px 10px #7f8eb7;
+        }
+        button:hover {
+            background-color: #4a5ba9;
+            transform: translateY(-3px);
+        }
+        .pdf-container {
+            width: 100vw;
+            background-color: #e6e6e6;
+            position: relative;
+        }
+        iframe {
+            width: 100vw;
+            height: 1080px;
+            border: 0;
+        }
+        #axo-container {
+            width: 100vw;
+            height: 600px;
+            background-color: #ccc;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="header-container">
+        <img src="logo.gif" alt="Logo" class="logo">
+        <h1>Arch.ITizer</h1>
+    </div>
+    <div class="button-container">
+        <button id="view3D" onclick="toggle3D()">&lt;\&gt;</button>
+        <button onclick="showPDF('cv.pdf')">CV</button>
+        <button onclick="showPDF('proiect_tipic.pdf')">PROIECT TIPIC</button>
+        <button onclick="showPDF('tehnic_tipic.pdf')">TEHNIC TIPIC</button>
+        <button onclick="showPDF('alte_lucrari.pdf')">ALTE LUCRĂRI</button>
+    </div>
+    <div class="pdf-container">
+        <iframe id="pdf-viewer" src=""></iframe>
+    </div>
+    <div id="axo-container"></div>
+    <script>
+        function showPDF(pdfFile) {
+            document.getElementById('pdf-viewer').src = pdfFile;
+            document.getElementById('axo-container').style.display = 'none';
+        }
+        function toggle3D() {
+            document.getElementById('pdf-viewer').src = '';
+            document.getElementById('axo-container').style.display = 'block';
+            loadDefinitoryModel();
+        }
+        window.onload = function() {
+            toggle3D();
+        };
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>

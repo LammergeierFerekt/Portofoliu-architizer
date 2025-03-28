@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arch.ITizer</title>
+    <link rel="stylesheet" href="src/style.css"> 
+
+</head>
+
+
+
+
+
+<body>
+    <div class="header-container">
+        <img src="logo.gif" alt="Logo" class="logo">
+        <h1>Arch.ITizer</h1>
+    </div>
+
+
+
+
+    <div class="button-container">
+        <button id="view3D" onclick="toggle3D()">&lt;\&gt;</button>
+        <button onclick="showPDF('proiect_tipic.pdf')">PROIECT TIPIC</button>
+        <button onclick="showPDF('tehnic_tipic.pdf')">TEHNIC TIPIC</button>
+        <button onclick="showPDF('alte_lucrari.pdf')">ALTE LUCRĂRI</button>
+        <button onclick="showPDF('cv.pdf')">CV</button>
+    </div>
+
+
+
+    <!-- <div id="axo" class="active">
+    </div>
+    
+    <iframe id="pdf-viewer" src="" class="pdf-container"></iframe>
+    <div class="pdf-container">
+        <div class="hider_1"></div>
+        <div class="gradient-shadow_1"></div>
+
+        <div class="hider_2"></div>
+        <div class="gradient-shadow_2"></div>
+
+    </div>
+     -->
+
+
+    <div id="axo"></div>
+    </div>
+
+
+
+    <div class="pdf-container">
+
+        <div class="hider_1"></div>
+        <div class="gradient-shadow_1"></div>
+
+        <div class="hider_2"></div>
+        <div class="gradient-shadow_2"></div>
+
+        <iframe id="pdf-viewer" src=""></iframe>
+
+
+    </div>
+
+
+
+
+
+   <script>
+        function showPDF(pdfFile) {
+            document.getElementById('pdf-viewer').src = pdfFile;
+        }
+        function toggle3D() {
+            document.getElementById('pdf-viewer').src = '';
+        }
+        window.onload = function() {
+            toggle3D();
+        };
+    </script>
+    <!-- <script type="module" src="src/script.js"></script> -->
+    <script type="module" src="src/script-final-site-nicole.js"></script>
+</body>
+</html>

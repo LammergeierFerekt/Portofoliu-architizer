@@ -1,0 +1,54 @@
+
+
+architizer/
+
+	node modules/
+		.bin
+		.vite
+		@esbuild
+		@rollup
+		@types
+		dat.gui
+		esbuild
+		nanoid
+		picocolors
+		postcss
+		rollup
+		source-map-js
+		three
+		vite
+		.package-lock
+
+	public/
+		images
+		02 Locuinta REMAKE.fbx
+		constructors
+		document
+		styles
+	src/
+		ini-export
+		sample
+		cube.bin
+		cube.glb
+		cube.gltf
+		cube2.glb
+		cube-animated.glb
+		cube-test.mdd
+		favicon
+		Houses.bin
+		Houses.glb
+		Houses.gltf
+		script
+		terrain.glb
+		wall.glb
+		wa1102.glb
+		wa1103.glb
+		wa1104.glb
+		wa1105.glb
+		wall-test.mdd
+
+	index
+	package
+	package-lock
+	READ ME
+	server

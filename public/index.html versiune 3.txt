@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arch.ITizer</title>
+
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #e6e6e6;
+            display: center;
+            border: 0;
+            padding: 0;
+            margin: 0;
+        }
+
+        
+        h1 {
+            margin-top: 25px;
+            font-family: sans-serif;
+            font-size: 60px;
+            color: #4a5ba9;
+            display: inline;
+
+        }
+
+        .logo {
+            height: 150px;
+            margin-top: -15px;
+
+
+        }
+
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 0px;
+        }
+        button {
+            position: relative;
+            z-index: 2;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background-color: #7f8eb7;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s, box-shadow 0.3s;
+            box-shadow: 3px 3px 10px #7f8eb7;
+        }
+        button:hover {
+            background-color: #4a5ba9;
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 10px #e6e6e6;
+        }
+
+
+        .hider_1 {
+            z-index:    5;
+            position: relative;
+            top: 100px;
+            left: 0;
+            width: 100%;
+            height: 47px;
+            margin: auto;
+            background-color: #e6e6e6;
+            top: 47px;
+
+        }
+
+        .hider_2 {
+            z-index: 1;
+            position: relative;
+           
+            left: 0;
+            width: 100%;
+            height: 47px;
+            margin: auto;
+            background-color: #e6e6e6;
+        }
+
+
+        .gradient-shadow_1 {
+            z-index: 1;
+            position: absolute;
+            top: 268px;
+            left: 0;
+            width: 100%;
+            height: 120px; /* Adjust thickness */
+            background: linear-gradient(to bottom, #7f8eb7, transparent);
+        }
+
+        .gradient-shadow_2 {
+            z-index: 1;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 120px; /* Adjust thickness */
+            background: linear-gradient(to top, #7f8eb7, transparent);
+    }
+
+
+
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+
+        }
+        
+
+        
+        .pdf-container {
+            z-index: 1;
+            width: 100%;
+            height: 1000px;
+            border: none;
+            background-color: #e6e6e6;
+            position: center;
+
+
+            
+        }
+        iframe {
+            width: 100%;
+            height: 1000px;
+            border: none;
+            background-color: #e6e6e6;
+            position: center;
+
+        }
+    </style>
+
+
+
+
+</head>
+<body>
+    <div class="header-container">
+        <img src="logo.gif" alt="Logo" class="logo">
+        <h1>Arch.ITizer</h1>
+    </div>
+
+
+    <div class="button-container">
+        <button onclick="showPDF('cv.pdf')">CV</button>
+        <button onclick="showPDF('proiect_tipic.pdf')">PROIECT TIPIC</button>
+        <button onclick="showPDF('tehnic_tipic.pdf')">TEHNIC TIPIC</button>
+        <button onclick="showPDF('alte_lucrari.pdf')">ALTE LUCRĂRI</button>
+    </div>
+
+    <div class="pdf-container">
+        <div class="hider_1"></div>
+        <div class="gradient-shadow_1"></div>
+
+        <div class="hider_2"></div>
+        <div class="gradient-shadow_2"></div>
+
+        <iframe id="pdf-viewer" src=""></iframe>
+    </div>
+
+
+
+
+
+
+    <script>
+        function showPDF(pdfFile) {
+            document.getElementById('pdf-viewer').src = pdfFile;
+        }
+    </script>
+
+</body>
+</html>
