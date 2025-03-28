@@ -24,6 +24,7 @@ dist-ssr
 *.sw?
 CV.ai
 bara degrade.ai
-public\models
-src\sample
 elemente grafice CV.ai
+public/models
+src/sample
+*.ai
