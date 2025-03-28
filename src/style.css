@@ -70,16 +70,15 @@
 
         }
 
-       /* .hider_2 {
-            z-index: 1;
-            position: relative;
-           
+       .hider_2 {
+            z-index: 10;
+            position: absolute;
+            bottom: -450px;
             left: 0;
             width: 100%;
-            height: 47px;
-            margin: auto;
+            height: 600px;
             background-color: #e6e6e6;
-        } */
+        }
 
 
         .gradient-shadow_1 {
