@@ -1,15 +1,29 @@
+
+//#region 1.Importing Modules
+import "/style.css";
+import * as THREE from "three";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+//#endregion
+
+//#region 2.Initializations
+
+
 document.addEventListener('DOMContentLoaded', function() {
     // Get references to the elements
     const pdfContainer = document.querySelector('.pdf-container');
     const axoContainer = document.getElementById('axo');
     const view3DButton = document.getElementById('view3D');
     const pdfButtons = document.querySelectorAll('.button-container button:not(#view3D)');
+    const pdfViewer = document.getElementById('pdf-viewer');
     
     // Function to activate 3D view
     function activate3DView() {
         axoContainer.classList.add('active');
         pdfContainer.classList.remove('active');
-        document.getElementById('pdf-viewer').src = '';
+        pdfViewer.src = '';
+        document.getElementById('gradient-shadow_1').style.opacity = 0;
+        document.getElementById('gradient-shadow_2').style.opacity = 0;
     }
     
     // Function to activate PDF view
@@ -18,50 +32,89 @@ document.addEventListener('DOMContentLoaded', function() {
         pdfContainer.classList.add('active');
     }
     
+    // Function to show PDF (from HTML script)
+    function showPDF(pdfFile) {
+        activatePDFView();
+        pdfViewer.src = pdfFile;
+        document.getElementById('gradient-shadow_1').style.opacity = 1;
+        document.getElementById('gradient-shadow_2').style.opacity = 1;
+    }
+    
     // Set up event listeners
     view3DButton.addEventListener('click', activate3DView);
     
     pdfButtons.forEach(button => {
         button.addEventListener('click', function() {
-            activatePDFView();
-            // Optional: You can add specific PDF handling here if needed
+            const pdfFile = this.getAttribute('data-pdf');
+            if (pdfFile) {
+                showPDF(pdfFile);
+            } else {
+                activatePDFView();
+                document.getElementById('gradient-shadow_1').style.opacity = 1;
+                document.getElementById('gradient-shadow_2').style.opacity = 1;
+            }
         });
     });
     
     // Initialize with 3D view active
     activate3DView();
+    
+    // Expose showPDF to global scope for HTML onclick handlers
+    window.showPDF = showPDF;
+    window.toggle3D = activate3DView;
 });
 
+//#endregion
 
+//#region 3.Handle cache files
+const REPO_NAME = '/Portofoliu-architizer';
 
+// Files to preload matching service worker's FILES_TO_CACHE exactly
+const filesToPreload = [
+  `${REPO_NAME}/`,
+  `${REPO_NAME}/index.html`,
+  `${REPO_NAME}/public/images/CV_Furdu_Mihael-Ionut.pdf`,
+  `${REPO_NAME}/public/alte_lucrari.pdf`,
+  `${REPO_NAME}/public/cv.pdf`,
+  `${REPO_NAME}/public/proiect_tipic.pdf`,
+  `${REPO_NAME}/public/tehnic_tipic.pdf`,
+  `${REPO_NAME}/src/CASA_BACAU.gltf`,
+];
 
+// Function to preload files by fetching them (to warm cache)
+function preloadFiles() {
+  filesToPreload.forEach((url) => {
+    fetch(url).then(response => {
+      if (!response.ok) {
+        console.warn('[Main] Failed to preload:', url);
+      }
+    }).catch(err => {
+      console.warn('[Main] Error preloading:', url, err);
+    });
+  });
+}
 
+window.addEventListener('load', () => {
+  preloadFiles();
 
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register(`${REPO_NAME}/sw.js`).then(reg => {
+      console.log('[Main] SW registered:', reg.scope);
+    }).catch(err => {
+      console.error('[Main] SW registration failed:', err);
+    });
 
+    navigator.serviceWorker.ready.then(() => {
+      console.log('[Main] SW ready and controlling the page');
+    });
+  }
+});
+//#endregion 
 
-
-
-
-
-
-
-// Importing Modules
-import "./style.css";
-import * as THREE from "three";
-import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-
-// // Importing from CSS
-// const mainColor = '#4a5ba9';
-
-
-
+//#region 4.3D view settings
 
 // Set 3D viewport
 const container = document.getElementById("axo");
-// container.height = 1000;
-// container.width = 1000;
-
 
 // Settingup Scene
 const scene = new THREE.Scene();
@@ -69,70 +122,46 @@ const scene = new THREE.Scene();
 let width = container.clientWidth;
 let height = container.clientHeight;
 
-
-
 // Set up Orthographic Camera (adjust near/far planes and view size based on your needs)
-    // Creating parameteres for camera
-        const aspect = width / height;
-        const far = 10000;
-        const near = 0.001;
-        const top = 5;
-        const bottom = -5;
-        const right = 5;
-        const left = -5;
+// Creating parameteres for camera
+const aspect = width / height;
+const far = 10000;
+const near = 0.001;
+const top = 5;
+const bottom = -5;
+const right = 5;
+const left = -5;
 
 // Settingup the camera
-    const camera = new THREE.OrthographicCamera(left * aspect,  right * aspect,top, bottom, near, far);
-
-// Setting the background
-// scene.background = new THREE.Color(mainColor);
+const camera = new THREE.OrthographicCamera(left * aspect, right * aspect, top, bottom, near, far);
 
 // Set initial camera position at the corner (isometric-like view)
-    camera.position.set(5, 5, 5); // Position at (10, 10, 10) to simulate isometric view
+camera.position.set(5, 5, 5); // Position at (10, 10, 10) to simulate isometric view
 // Set direction of the camera;
-    camera.lookAt(new THREE.Vector3(0, 0, 0)); // Look at the center of the object
+camera.lookAt(new THREE.Vector3(0, 0, 0)); // Look at the center of the object
 
-    
-    
 // Set the renderer
 const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setSize(width, height);
 renderer.setPixelRatio(window.devicePixelRatio);
 container.appendChild(renderer.domElement);
 
-
-
 // Lights
-    const ambientLight = new THREE.AmbientLight(0xffffff, 3); // Soft light
-    const directionalLight01 = new THREE.DirectionalLight(0xffffff, 5); // Directional light 01
-    const directionalLight02 = new THREE.DirectionalLight(0xffffff, 5); // Directional light 02
-    scene.add(ambientLight, directionalLight01, directionalLight02);
+const ambientLight = new THREE.AmbientLight(0xffffff, 3); // Soft light
+const directionalLight01 = new THREE.DirectionalLight(0xffffff, 7); // Directional light 01
+const directionalLight02 = new THREE.DirectionalLight(0xffffff, 10); // Directional light 02
+scene.add(ambientLight, directionalLight01, directionalLight02);
 
-    // Light parameters
-    directionalLight01.position.set(5, 10, 5);
-    directionalLight02.position.set(-5, 10, -5);
-
-// // Geometry test
-//     const geometry = new THREE.BoxGeometry(5,5,5);
-//     const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-//     const cube = new THREE.Mesh(geometry, material);
-
-//     // console.log(cube);
-//     // scene.add(cube);
-
-
-
-
+// Light parameters
+directionalLight01.position.set(5, 10, 5);
+directionalLight02.position.set(-5, 10, -5);
 
 // Creating GLTF Models paths
-const model = "./src/02_00_CASA-BACAU_ACOPERIS.glb";
+const model = `src/CASA_BACAU.gltf`;
 // Load GLB model
 const loader = new GLTFLoader();
 
-
 let gltfModel;  // Store the model reference
-let isSpinning = true;  // Flag to control rotation
-
 
 loader.load(model, (gltf) => {
     gltfModel = gltf.scene;
@@ -153,107 +182,127 @@ loader.load(model, (gltf) => {
         }
     });
 
-    // Apply material overrides (same for all stages)
-    const backgroundColor = 0xe6e6e6;
-    gltf.scene.traverse((child) => {
-        if (child.isMesh) {
-            if (Array.isArray(child.material)) {
-                child.material.forEach((material, index) => {
-                    if (['Pamant'].includes(material.name)) {
-                        child.material[index] = new THREE.MeshBasicMaterial({
-                            color: backgroundColor,
-                            emissive: 0xf0f0f0,
-                            map: null,
-                            side: THREE.FrontSide
-                        });
-                    }
-                });
-            } else {
-                if (['Pamant'].includes(child.material.name)) {
-                    child.material = new THREE.MeshBasicMaterial({
+
+// Apply material overrides
+const backgroundColor = 0xe6e6e6;       // Light gray for ground
+const movColor = 0x93a0c6;             // Purple-blue color
+const sticlaColor = 0xffe2dd;          // Yellow for glass
+const tiglaColor = 0xa3acc8;           // Purple-blue for tiles (originally red)
+
+gltf.scene.traverse((child) => {
+    if (child.isMesh) {
+        // Handle materials that are in an array
+        if (Array.isArray(child.material)) {
+            child.material.forEach((material, index) => {
+                if (['Pamant'].includes(material.name)) {
+                    // Ground material
+                    child.material[index] = new THREE.MeshBasicMaterial({
                         color: backgroundColor,
-                        emissive: 0xf0f0f0,
                         map: null,
                         side: THREE.FrontSide
                     });
                 }
+                else if (material.name.includes('Metal - plasa de sarma')) {
+                    // Wire mesh material - transparent purple-blue
+                    child.material[index] = new THREE.MeshStandardMaterial({
+                        color: movColor,
+                        metalness: 0.8,
+                        roughness: 0.4,
+                        transparent: true,
+                        opacity: 0.7,
+                        side: THREE.FrontSide
+                    });
+                }
+                else if (material.name.includes('Sticla - clara')) {
+                    // Clear glass material - yellow tint
+                    child.material[index] = new THREE.MeshPhysicalMaterial({
+                        color: sticlaColor,
+                        transmission: 0.9,    // Glass transparency
+                        roughness: 0.1,
+                        metalness: 0.0,
+                        clearcoat: 1.5,
+                        clearcoatRoughness: 0.1,
+                        ior: 1.5,  
+                        transparent: true,
+                        opacity: 0.7,          // Index of refraction (glass is ~1.5)
+                        side: THREE.DoubleSide // Glass should render both sides
+                    });
+                }
+                else if (material.name.includes('Tigla rosie')) {
+                    // Red tiles - override with purple-blue but keep original texture
+                    child.material[index] = new THREE.MeshStandardMaterial({
+                        map: material.map,     // Keep original texture map
+                        color: tiglaColor,     // Apply purple-blue tint
+                        side: THREE.FrontSide
+                    });
+                }
+            });
+        } 
+        // Handle single materials
+        else {
+            if (['Pamant'].includes(child.material.name)) {
+                // Ground material
+                child.material = new THREE.MeshBasicMaterial({
+                    color: backgroundColor,
+                    map: null,
+                    side: THREE.FrontSide
+                });
+            }
+            else if (child.material.name.includes('Metal - plasa de sarma')) {
+                // Wire mesh material - transparent purple-blue
+                child.material = new THREE.MeshStandardMaterial({
+                    color: movColor,
+                    metalness: 0.8,
+                    roughness: 0.4,
+                    transparent: true,
+                    opacity: 0.7,
+                    side: THREE.FrontSide
+                });
+            }
+            else if (child.material.name.includes('Sticla - clara')) {
+                // Clear glass material - yellow tint
+                child.material = new THREE.MeshPhysicalMaterial({
+                    color: sticlaColor,
+                    transmission: 0.9,
+                    roughness: 0.1,
+                    metalness: 0.0,
+                    clearcoat: 1.0,
+                    clearcoatRoughness: 0.1,
+                    ior: 1.5,
+                    side: THREE.DoubleSide
+                });
+            }
+            else if (child.material.name.includes('Tigla rosie')) {
+                // Red tiles - override with purple-blue but keep original texture
+                child.material = new THREE.MeshStandardMaterial({
+                    map: child.material.map,  // Keep original texture map
+                    color: tiglaColor,       // Apply purple-blue tint
+                    metalness: child.material.metalness || 0.0,
+                    roughness: child.material.roughness || 0.5,
+                    side: THREE.FrontSide
+                });
             }
         }
-    });
-
-
-    // Add a rotating animation to the model
-    const rotationSpeed = 0.0025; // Control the speed of the rotation
-    function animate() {
-        requestAnimationFrame(animate);
-        
-        // Rotate the entire scene or the specific model object (gltf.scene)
-        gltf.scene.rotation.y += rotationSpeed; // Rotating around the Y-axis
-
-        controls.update();
-        renderer.render(scene, camera);
     }
- animate();
+});
 }, undefined, (error) => {
     console.error('Loading error', error);
 });
 
 
 
-
 // Set Camera Controls
 const controls = new OrbitControls(camera, renderer.domElement);
-    // Set parameters of controls
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.05;
-    controls.screenSpacePanning = false;
-    controls.zoomSpeed = 1.2;
-    controls.minDistance = 10;  // Limit zoom to a certain minimum distance
-    controls.maxDistance = 10; // Limit zoom to a certain maximum distance
-    controls.enableZoom = false; // Disabling zoom
-    controls.maxPolarAngle = Math.PI / 3; // Prevent vertical rotation (limit pitch to 90 degrees)
-    controls.minPolarAngle = Math.PI / 3; // Lock vertical axis at 90 degrees (horizontal only)
-
- 
-    // Tests
-console.log(container.height, container.width)
-console.log(model)
-
-
-// Function to update the aspect ratio and camera projection on window resize
-function onWindowResize() {
-    width = container.clientWidth;
-    height = container.clientHeight;
-
-    // Update camera aspect ratio and projection matrix
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-
-    // Update renderer size
-    renderer.setSize(width, height);
-}
-
-
-// Show PDF function
-function showPDF(pdfFile) {
-    // Hide 3D container and show PDF container
-    document.getElementById('axo').classList.remove('active');
-    document.getElementById('pdf-viewer').src = pdfFile;
-    document.querySelector('.pdf-container').classList.add('active');
-}
-
-// Toggle 3D function
-function toggle3D() {
-    // Hide PDF container and show 3D container
-    document.querySelector('.pdf-container').classList.remove('active');
-    document.getElementById('pdf-viewer').src = '';
-    document.getElementById('axo').classList.add('active');
-}
-
-// Initially, disable both, and load 3D view
-window.onload = function() {
-    toggle3D();
-};
+// Set parameters of controls
+controls.enableDamping = true;
+controls.dampingFactor = 0.05;
+controls.screenSpacePanning = false;
+controls.zoomSpeed = 1.2;
+controls.minDistance = 10;  // Limit zoom to a certain minimum distance
+controls.maxDistance = 10; // Limit zoom to a certain maximum distance
+controls.enableZoom = false; // Disabling zoom
+controls.maxPolarAngle = Math.PI / 3; // Prevent vertical rotation (limit pitch to 90 degrees)
+controls.minPolarAngle = Math.PI / 3; // Lock vertical axis at 90 degrees (horizontal only)
 
 // Animation loop
 function animate() {
@@ -262,3 +311,13 @@ function animate() {
     renderer.render(scene, camera);
 }
 animate();
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    width = container.clientWidth;
+    height = container.clientHeight;
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+    renderer.setSize(width, height);
+});
+//#endregion

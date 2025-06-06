@@ -1,0 +1,30 @@
+<svg id="logo.architizer" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <g id="layer_arch">
+    <g id="background_arch">
+      <polyline points="132.562 67.438 165.124 100 151.448 113.676" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <polyline points="67.438 132.562 34.876 100 48.552 86.324" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="67.438" y1="67.438" x2="132.562" y2="132.562" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+    </g>
+    <g id="arch">
+      <polygon points="132.562 67.438 165.124 100 132.562 132.562 132.562 67.438" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <polygon points="67.438 132.562 34.876 100 67.438 67.438 67.438 132.562" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="67.438" y1="47.286" x2="67.438" y2="67.438" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="132.562" y1="132.562" x2="132.562" y2="152.714" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+    </g>
+  </g>
+  <g id="layer_code">
+    <g id="background_code">
+      <polygon points="132.562 67.438 165.124 100 132.562 132.562 132.562 67.438" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <polygon points="67.438 132.562 34.876 100 67.438 67.438 67.438 132.562" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="67.438" y1="47.286" x2="67.438" y2="67.438" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="132.562" y1="132.562" x2="132.562" y2="152.714" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="67.438" y1="67.438" x2="132.562" y2="132.562" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <polygon points="67.438 132.562 34.876 100 67.438 67.438 67.438 132.562" style="fill: none;stroke: #b5b2d9;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+    </g>
+    <g id="code">
+      <polyline points="132.562 67.438 165.124 100 151.448 113.676" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <polyline points="67.438 132.562 34.876 100 48.552 86.324" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+      <line x1="67.438" y1="67.438" x2="132.562" y2="132.562" style="fill: none;stroke: #4858a7;stroke-linecap: round;stroke-linejoin: round;stroke-width: 11px"/>
+    </g>
+  </g>
+</svg>
