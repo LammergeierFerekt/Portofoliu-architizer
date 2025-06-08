@@ -82,6 +82,11 @@ const spinner = document.getElementById('spinner');
 //#endregion
 
 //#region 3.Handle cache files
+
+self.addEventListener('install', (e) => {
+  console.log('Service Worker installed');
+});
+
 const REPO_NAME = '/Portofoliu-architizer';
 
 // Files to preload matching service worker's FILES_TO_CACHE exactly
@@ -93,7 +98,7 @@ const filesToPreload = [
   `${REPO_NAME}/public/cv.pdf`,
   `${REPO_NAME}/public/proiect_tipic.pdf`,
   `${REPO_NAME}/public/tehnic_tipic.pdf`,
-  `${REPO_NAME}/src/CASA_BACAU.gltf`,
+  `${REPO_NAME}/public/CASA_BACAU.gltf`,
 ];
 
 // Function to preload files by fetching them (to warm cache)
@@ -113,7 +118,7 @@ window.addEventListener('load', () => {
   preloadFiles();
 
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(`${REPO_NAME}/sw.js`).then(reg => {
+    navigator.serviceWorker.register(`${import.meta.env.BASE_URL || '/'}sw.js`).then(reg => {
       console.log('[Main] SW registered:', reg.scope);
     }).catch(err => {
       console.error('[Main] SW registration failed:', err);
@@ -166,7 +171,7 @@ directionalLight01.position.set(5, 10, 5);
 directionalLight02.position.set(-5, 10, -5);
 
 // Creating GLTF Models paths
-const model = `src/CASA_BACAU.gltf`;
+const model = `${import.meta.env.BASE_URL || '/'}CASA_BACAU.gltf`;
 const loader = new GLTFLoader();
 
 let gltfModel;
