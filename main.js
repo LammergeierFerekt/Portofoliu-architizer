@@ -84,58 +84,55 @@ const spinner = document.getElementById('spinner');
 
 //#endregion
 
-//#region 3.Handle cache files
+// //#region 3.Handle cache files
 
-self.addEventListener('install', (e) => {
-  console.log('Service Worker installed');
-});
+// self.addEventListener('install', (e) => {
+//   console.log('Service Worker installed');
+// });
 
-const REPO_NAME = '/Portofoliu-architizer';
+// const REPO_NAME = '/Portofoliu-architizer';
 
+// // Files to preload matching service worker's FILES_TO_CACHE exactly
+// const filesToPreload = [
+//   `${REPO_NAME}/`,
+//   `${REPO_NAME}/index.html`,
+//   `${REPO_NAME}/public/images/CV_Furdu_Mihael-Ionut.pdf`,
+//   `${REPO_NAME}/public/alte_lucrari.pdf`,
+//   `${REPO_NAME}/public/cv.pdf`,
+//   `${REPO_NAME}/public/proiect_tipic.pdf`,
+//   `${REPO_NAME}/public/tehnic_tipic.pdf`,
+//   `${REPO_NAME}/public/CASA_BACAU.gltf`,
+// ];
 
+// // Function to preload files by fetching them (to warm cache)
+// function preloadFiles() {
+//   filesToPreload.forEach((url) => {
+//     fetch(url).then(response => {
+//       if (!response.ok) {
+//         console.warn('[Main] Failed to preload:', url);
+//       }
+//     }).catch(err => {
+//       console.warn('[Main] Error preloading:', url, err);
+//     });
+//   });
+// }
 
+// window.addEventListener('load', () => {
+//   preloadFiles();
 
-// Files to preload matching service worker's FILES_TO_CACHE exactly
-const filesToPreload = [
-  `${REPO_NAME}/`,
-  `${REPO_NAME}/index.html`,
-  `${REPO_NAME}/public/images/CV_Furdu_Mihael-Ionut.pdf`,
-  `${REPO_NAME}/public/alte_lucrari.pdf`,
-  `${REPO_NAME}/public/cv.pdf`,
-  `${REPO_NAME}/public/proiect_tipic.pdf`,
-  `${REPO_NAME}/public/tehnic_tipic.pdf`,
-  `${REPO_NAME}src/CASA_BACAU.gltf`,
-];
+//   if ('serviceWorker' in navigator) {
+//     navigator.serviceWorker.register(`${import.meta.env.BASE_URL || '/'}sw.js`).then(reg => {
+//       console.log('[Main] SW registered:', reg.scope);
+//     }).catch(err => {
+//       console.error('[Main] SW registration failed:', err);
+//     });
 
-// Function to preload files by fetching them (to warm cache)
-function preloadFiles() {
-  filesToPreload.forEach((url) => {
-    fetch(url).then(response => {
-      if (!response.ok) {
-        console.warn('[Main] Failed to preload:', url);
-      }
-    }).catch(err => {
-      console.warn('[Main] Error preloading:', url, err);
-    });
-  });
-}
-
-window.addEventListener('load', () => {
-  preloadFiles();
-
-  if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register(`${import.meta.env.BASE_URL || '/'}sw.js`).then(reg => {
-      console.log('[Main] SW registered:', reg.scope);
-    }).catch(err => {
-      console.error('[Main] SW registration failed:', err);
-    });
-
-    navigator.serviceWorker.ready.then(() => {
-      console.log('[Main] SW ready and controlling the page');
-    });
-  }
-});
-//#endregion 
+//     navigator.serviceWorker.ready.then(() => {
+//       console.log('[Main] SW ready and controlling the page');
+//     });
+//   }
+// });
+// //#endregion 
 
 //#region 4.3D view settings with auto-spin functionality
 
@@ -177,7 +174,7 @@ directionalLight01.position.set(5, 10, 5);
 directionalLight02.position.set(-5, 10, -5);
 
 // Creating GLTF Models paths
-const model = `${import.meta.env.BASE_URL || '/'}src/CASA_BACAU.gltf`;
+const model = `${import.meta.env.BASE_URL}models/CASA_BACAU.gltf`;
 const loader = new GLTFLoader();
 
 let gltfModel;

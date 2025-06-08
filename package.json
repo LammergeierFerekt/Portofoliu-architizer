@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
+    "deploy": "gh-pages -d dist",
     "build": "vite build",
-    "deploy": "npm run build && gh-pages -d dist",
     "preview": "vite preview"
   },
   "devDependencies": {
