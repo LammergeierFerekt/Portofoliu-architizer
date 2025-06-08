@@ -1,4 +1,4 @@
-const CACHE_NAME = 'my-cache-v1';
+const CACHE_NAME = 'my-cache-v3';
 const REPO_NAME = '/Portofoliu-architizer';
 
 const FILES_TO_CACHE = [
