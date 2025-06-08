@@ -108,6 +108,7 @@
             height: 120px; /* Adjust thickness */
             background: linear-gradient(to bottom, #7f8eb7, transparent);
             transition: opacity 1s ease-in-out; /* smooth transition of opacity */
+            will-change: opacity; /* Improves performance */
 
         }
 
@@ -120,11 +121,12 @@
             height: 120px; /* Adjust thickness */
             background: linear-gradient(to top, #7f8eb7, transparent);
             transition: opacity 1s ease-in-out; /* smooth transition of opacity */
+            will-change: opacity; /* Improves performance */
 
         }
 
-
-        
+   
+                    
         /* Default state - PDF container is visible */
         .pdf-container {
             z-index: 1;
