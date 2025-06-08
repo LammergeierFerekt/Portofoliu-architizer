@@ -7,17 +7,25 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'public/*', // Ensure this matches your PDF folder
-          dest: '', // Destination folder in the build output
+          src: 'public/*', // Copy all PDFs
+          dest: './'
         },
+        {
+          src: 'src/CASA_BACAU.gltf',
+          dest: './'
+        }
       ],
-    }),
+      flatten: false // Preserve directory structure
+    })
   ],
   build: {
     rollupOptions: {
       external: ['fsevents'],
+      output: {
+        assetFileNames: 'assets/[name].[hash].[ext]'
+      }
     },
     assetsInlineLimit: 0,
-    emptyOutDir: true, // Automatically clears the dist folder before building
-  },
+    emptyOutDir: true
+  }
 });

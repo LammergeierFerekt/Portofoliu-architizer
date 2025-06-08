@@ -104,7 +104,7 @@ const filesToPreload = [
   `${REPO_NAME}/public/cv.pdf`,
   `${REPO_NAME}/public/proiect_tipic.pdf`,
   `${REPO_NAME}/public/tehnic_tipic.pdf`,
-  `${REPO_NAME}/public/CASA_BACAU.gltf`,
+  `${REPO_NAME}src/CASA_BACAU.gltf`,
 ];
 
 // Function to preload files by fetching them (to warm cache)
@@ -177,7 +177,7 @@ directionalLight01.position.set(5, 10, 5);
 directionalLight02.position.set(-5, 10, -5);
 
 // Creating GLTF Models paths
-const model = `${import.meta.env.BASE_URL || '/'}CASA_BACAU.gltf`;
+const model = `${import.meta.env.BASE_URL || '/'}src/CASA_BACAU.gltf`;
 const loader = new GLTFLoader();
 
 let gltfModel;
