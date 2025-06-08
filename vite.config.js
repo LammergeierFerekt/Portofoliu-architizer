@@ -11,7 +11,7 @@ export default defineConfig({
           dest: './'
         },
         {
-          src: 'src/CASA_BACAU.gltf',  // Your 3D model
+          src: 'public/CASA_BACAU.gltf',  // Your 3D model
           dest: './'
         },
         {
