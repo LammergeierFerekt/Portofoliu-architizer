@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Expose showPDF to global scope for HTML onclick handlers
     window.showPDF = showPDF;
     window.toggle3D = activate3DView;
-    
+
 });
 
 // Add this at the top of your script section
@@ -89,6 +89,9 @@ self.addEventListener('install', (e) => {
 });
 
 const REPO_NAME = '/Portofoliu-architizer';
+
+
+
 
 // Files to preload matching service worker's FILES_TO_CACHE exactly
 const filesToPreload = [

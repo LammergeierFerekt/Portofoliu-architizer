@@ -23,6 +23,9 @@ self.addEventListener('install', (event) => {
   self.skipWaiting();
 });
 
+
+
+
 // Activate event – delete old caches
 self.addEventListener('activate', (event) => {
   console.log('[ServiceWorker] Activating and clearing old caches...');
