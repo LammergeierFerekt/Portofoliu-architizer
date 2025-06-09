@@ -1,7 +1,7 @@
 //#region 1.Importing Modules
 import "/style.css";
-import * as THREE from "./three";
-import { OrbitControls } from './three/addons/controls/OrbitControls.js';
+import * as THREE from "three";
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 //#endregion
 
